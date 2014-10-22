@@ -13,9 +13,13 @@ public class UserFunctions {
 
 	private JSONParser jsonParser;
     
-    private static String loginURL = "http://10.0.2.2/vnb/user_activity.php";
-    private static String registerURL = "http://10.0.2.2/vnb/user_activity.php";
-    private static String noticesURL = "http://10.0.2.2/vnb/get_data.php";
+    /*private static String loginURL = "http://10.0.2.2/vnb/android/user_activity.php";
+    private static String registerURL = "http://10.0.2.2/vnb/android/user_activity.php";
+    private static String noticesURL = "http://10.0.2.2/vnb/android/get_data.php";*/
+    
+    private static String loginURL = "http://ieeedtu.com/sagnik/vnb/android/user_activity.php";
+    private static String registerURL = "http://ieeedtu.com/sagnik/vnb/android/user_activity.php";
+    private static String noticesURL = "http://ieeedtu.com/sagnik/vnb/android/get_data.php";
      
     private static String login_tag = "login";
     private static String register_tag = "register";

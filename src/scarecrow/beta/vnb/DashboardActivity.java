@@ -11,6 +11,7 @@ import scarecrow.beta.vnb.library.*;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -43,28 +44,7 @@ public class DashboardActivity extends Activity {
 			
 			new LoadNotices().execute();
 			
-			list = (ListView) findViewById(R.id.list_view);
 			
-			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-			
-			List<String> notices_list = db.allNotices();
-			Log.d("Count", notices_list.get(0));
-			list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notices_list));
-			
-			db.close();
-			
-			list.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					
-					String item = ((TextView)view).getText().toString();
-					Intent details = new Intent(getApplicationContext(), NoticeActivity.class);
-					details.putExtra("subject", item);
-					startActivity(details);
-				}
-			});
 			
 			btnLogout = (Button) findViewById(R.id.btnLogout);
             
@@ -88,12 +68,30 @@ public class DashboardActivity extends Activity {
 		}
 	}
 	
-	class LoadNotices extends AsyncTask<String, String, String> {
+	class LoadNotices extends AsyncTask<String, String, JSONObject> {
 
+		private ProgressDialog pDialog;
+	    
 		@Override
-		protected String doInBackground(String... arg0) {
+	    protected void onPreExecute() {
+			super.onPreExecute();
+            pDialog = new ProgressDialog(DashboardActivity.this);
+            pDialog.setMessage("Fetching Notices ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+	    }
+		
+		@Override
+		protected JSONObject doInBackground(String... arg0) {
 			UserFunctions userFunction = new UserFunctions();
 			JSONObject json = userFunction.getNotices();
+			return json;
+		}
+		
+		@Override
+		protected void onPostExecute(JSONObject json) {
+			pDialog.dismiss();
 			JSONObject row = null;
 			String subject = "";
 			String message = "";
@@ -120,9 +118,32 @@ public class DashboardActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			return null;
+			
+			list = (ListView) findViewById(R.id.list_view);
+			
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			
+			List<String> notices_list = db.allNotices();
+			//Log.d("Count", notices_list.get(0));
+			list.setAdapter(new ArrayAdapter<String>(DashboardActivity.this, android.R.layout.simple_list_item_1, notices_list));
+			
+			db.close();
+			
+			list.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					
+					String item = ((TextView)view).getText().toString();
+					Intent details = new Intent(getApplicationContext(), NoticeActivity.class);
+					details.putExtra("subject", item);
+					startActivity(details);
+				}
+			});
+			return;
 		}
 		
-	}
+	}	
 
 }
