@@ -40,13 +40,14 @@ public class UserFunctions {
         return json;
     }
 	
-	public JSONObject registerUser(String name, String email, String password){
+	public JSONObject registerUser(String name, String email, String password, String regId){
         
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", register_tag));
         params.add(new BasicNameValuePair("name", name));
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("regId", regId));
          
         JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
         return json;
