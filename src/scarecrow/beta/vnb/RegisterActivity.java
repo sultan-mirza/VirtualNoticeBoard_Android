@@ -6,16 +6,17 @@ import scarecrow.beta.vnb.library.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+//import android.content.SharedPreferences;
 //import android.content.pm.PackageInfo;
 //import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
+//import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +32,11 @@ public class RegisterActivity extends Activity {
     EditText inputFullName;
     EditText inputEmail;
     EditText inputPassword;
+    Spinner inputYear;
     TextView registerErrorMsg;
     
     GoogleCloudMessaging gcm;
-	Context context;
+    Context context;
 	String regId;
 
 	public static final String REG_ID = "regId";
@@ -55,6 +57,7 @@ public class RegisterActivity extends Activity {
         inputFullName = (EditText) findViewById(R.id.registerName);
         inputEmail = (EditText) findViewById(R.id.registerEmail);
         inputPassword = (EditText) findViewById(R.id.registerPassword);
+        inputYear = (Spinner) findViewById(R.id.registerYear);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
         registerErrorMsg = (TextView) findViewById(R.id.register_error);
@@ -78,7 +81,7 @@ public class RegisterActivity extends Activity {
 		});
     }
     
-    public String registerGCM() {
+    /*public String registerGCM() {
 
 		gcm = GoogleCloudMessaging.getInstance(this);
 		regId = getRegistrationId(context);
@@ -96,9 +99,9 @@ public class RegisterActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 		}
 		return regId;
-	}
+	}*/
 
-	private String getRegistrationId(Context context) {
+	/*private String getRegistrationId(Context context) {
 		final SharedPreferences prefs = getSharedPreferences(
 				DashboardActivity.class.getSimpleName(), Context.MODE_PRIVATE);
 		String registrationId = prefs.getString(REG_ID, "");
@@ -111,9 +114,9 @@ public class RegisterActivity extends Activity {
 		if (registeredVersion != currentVersion) {
 			Log.i(TAG, "App version changed.");
 			return "";
-		}*/
+		}
 		return registrationId;
-	}
+	}*/
 
 	/*private static int getAppVersion(Context context) {
 		try {
@@ -127,9 +130,7 @@ public class RegisterActivity extends Activity {
 		}
 	}*/
 
-	private void registerInBackground() {
-		new PushNotification().execute();
-	}
+	
 
 	/*private void storeRegistrationId(Context context, String regId) {
 		final SharedPreferences prefs = getSharedPreferences(
@@ -142,12 +143,20 @@ public class RegisterActivity extends Activity {
 		editor.commit();
 	}*/
 	
-	class PushNotification extends AsyncTask<String, String, String> {
+	class AttemptRegister extends AsyncTask<String, String, String> {
 
 		@Override
-		protected String doInBackground(String... arg0) {
+		protected String doInBackground(String... arg0) {            
+            
+			String name = inputFullName.getText().toString();
+            String email = inputEmail.getText().toString();
+            String password = inputPassword.getText().toString();
+            String year = inputYear.getSelectedItem().toString();
+            UserFunctions userFunction = new UserFunctions();
+            
 			String msg = "";
-			try {
+			context = getApplicationContext();
+            try {
 				if (gcm == null) {
 					gcm = GoogleCloudMessaging.getInstance(context);
 				}
@@ -162,37 +171,10 @@ public class RegisterActivity extends Activity {
 				Log.d("RegisterActivity", "Error: " + msg);
 			}
 			Log.d("RegisterActivity", "AsyncTask completed: " + msg);
-			return msg;
-		}
-		
-		@Override
-		protected void onPostExecute(String msg) {
-			Toast.makeText(getApplicationContext(),
-					"Registered with GCM Server." + msg, Toast.LENGTH_LONG)
-					.show();
-		}
-		
-	}
-    
-    class AttemptRegister extends AsyncTask<String, String, String> {
-
-		@Override
-		protected String doInBackground(String... arg0) {
-			String name = inputFullName.getText().toString();
-            String email = inputEmail.getText().toString();
-            String password = inputPassword.getText().toString();
-            UserFunctions userFunction = new UserFunctions();
-            
-            if (TextUtils.isEmpty(regId)) {
-				regId = registerGCM();
-				Log.d("RegisterActivity", "GCM RegId: " + regId);
-			} else {
-				Log.d("RegisterActivity", "Already Registered with GCM Server!");
-			}
-            
-            JSONObject json = userFunction.registerUser(name, email, password, regId);
-            
-            try {
+			
+			JSONObject json = userFunction.registerUser(name, email, password, regId, year);
+			
+			try {
             	if (json.getString(KEY_SUCCESS) != null) {
             		//registerErrorMsg.setText("");
             		String res = json.getString(KEY_SUCCESS);
@@ -217,8 +199,16 @@ public class RegisterActivity extends Activity {
             } catch (JSONException e) {
             	e.printStackTrace();
             }
-            
+			
 			return null;
+            
+		}
+		
+		@Override
+		protected void onPostExecute(String msg) {
+                       
+            Toast.makeText(context, "Registered Successfully", Toast.LENGTH_LONG).show();
+            
 		}
     	
     }

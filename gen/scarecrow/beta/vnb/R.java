@@ -8,6 +8,9 @@
 package scarecrow.beta.vnb;
 
 public final class R {
+    public static final class array {
+        public static final int array_name=0x7f0a0000;
+    }
     public static final class attr {
         /** 
     The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
@@ -408,13 +411,13 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020020;
     }
     public static final class id {
-        public static final int action_settings=0x7f070025;
+        public static final int action_settings=0x7f070026;
         public static final int book_now=0x7f070010;
-        public static final int btnLinkToLoginScreen=0x7f070024;
+        public static final int btnLinkToLoginScreen=0x7f070025;
         public static final int btnLinkToRegisterScreen=0x7f07001a;
         public static final int btnLogin=0x7f070019;
         public static final int btnLogout=0x7f070015;
-        public static final int btnRegister=0x7f070023;
+        public static final int btnRegister=0x7f070024;
         public static final int buyButton=0x7f07000a;
         public static final int buy_now=0x7f07000f;
         public static final int buy_with_google=0x7f07000e;
@@ -437,7 +440,8 @@ containing a value of this type.
         public static final int registerEmail=0x7f070020;
         public static final int registerName=0x7f07001f;
         public static final int registerPassword=0x7f070021;
-        public static final int register_error=0x7f070022;
+        public static final int registerYear=0x7f070022;
+        public static final int register_error=0x7f070023;
         public static final int sandbox=0x7f070008;
         public static final int satellite=0x7f070002;
         public static final int selectionDetails=0x7f07000b;
@@ -457,10 +461,10 @@ containing a value of this type.
         public static final int register=0x7f030003;
     }
     public static final class menu {
-        public static final int login=0x7f0a0000;
-        public static final int main=0x7f0a0001;
-        public static final int notice=0x7f0a0002;
-        public static final int register=0x7f0a0003;
+        public static final int login=0x7f0b0000;
+        public static final int main=0x7f0b0001;
+        public static final int notice=0x7f0b0002;
+        public static final int register=0x7f0b0003;
     }
     public static final class string {
         public static final int No_Account=0x7f05002e;
@@ -591,6 +595,7 @@ containing a value of this type.
          */
         public static final int wallet_buy_button_place_holder=0x7f050022;
         public static final int welcome=0x7f050029;
+        public static final int year=0x7f050036;
     }
     public static final class style {
         /** 
