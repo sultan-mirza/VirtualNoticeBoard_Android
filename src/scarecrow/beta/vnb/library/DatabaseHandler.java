@@ -152,6 +152,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	return values;
     }
     
+    public String getYear() {
+    	SQLiteDatabase db = this.getReadableDatabase();
+		String year = "";
+		Cursor cursor = db.query(TABLE_LOGIN, new String[] { KEY_YEAR }, null,
+				null, null, null, null, null);;
+		cursor.moveToFirst();
+		if(cursor.getCount() > 0) {
+			year = cursor.getString(0);
+		}
+		cursor.close();
+		db.close();
+    	return year;
+    }
+    
     public void resetTable_Login(){
         SQLiteDatabase db = this.getWritableDatabase();
         

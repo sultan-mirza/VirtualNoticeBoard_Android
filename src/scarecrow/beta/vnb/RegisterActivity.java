@@ -5,6 +5,8 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 //import android.content.SharedPreferences;
 //import android.content.pm.PackageInfo;
 //import android.content.pm.PackageManager.NameNotFoundException;
@@ -68,7 +70,18 @@ public class RegisterActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				new AttemptRegister().execute();
+
+				ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+				
+				NetworkInfo ni = cm.getActiveNetworkInfo();
+				
+				if(ni == null) {
+					
+					Toast.makeText(getApplicationContext(), "Can't Connect to the Internet", Toast.LENGTH_LONG).show();
+					
+				} else {
+					new AttemptRegister().execute();
+				}
 			}
 		});
         

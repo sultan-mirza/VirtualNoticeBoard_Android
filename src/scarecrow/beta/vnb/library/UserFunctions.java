@@ -69,8 +69,15 @@ public class UserFunctions {
         return true;
     }
 	
-	public JSONObject getNotices() {
-		JSONObject json = jsonParser.getJSONFromUrl(noticesURL, null);
+	public JSONObject getNotices(Context context) {
+		
+		DatabaseHandler db = new DatabaseHandler(context);
+		String year = db.getYear();
+		db.close();
+		
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("year", year));
+		JSONObject json = jsonParser.getJSONFromUrl(noticesURL, params);
 		return json;
 	}
 

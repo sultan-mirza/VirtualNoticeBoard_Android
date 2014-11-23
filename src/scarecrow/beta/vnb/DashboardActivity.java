@@ -8,10 +8,13 @@ import org.json.JSONObject;
 
 import scarecrow.beta.vnb.R;
 import scarecrow.beta.vnb.library.*;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DashboardActivity extends Activity {
 
@@ -45,7 +49,20 @@ public class DashboardActivity extends Activity {
 		if(userFunctions.isUserLoggedIn(getApplicationContext())) {
 			setContentView(R.layout.dashboard);
 			
-			new LoadNotices().execute();
+			ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+			
+			NetworkInfo ni = cm.getActiveNetworkInfo();
+			
+			if(ni == null) {
+				
+				Toast.makeText(getApplicationContext(), "Can't Connect to the Internet", Toast.LENGTH_LONG).show();
+				prepareNotices();
+				
+			} else {
+				
+				new LoadNotices().execute();
+				
+			}
 			
 			
 			
@@ -58,7 +75,8 @@ public class DashboardActivity extends Activity {
 					userFunctions.logoutUser(getApplicationContext());
                     Intent login = new Intent(getApplicationContext(), LoginActivity.class);
                     login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(login);
+                    startActivityForResult(login, 0);
+                    finish();
 				}
 			});
 		} else {
@@ -69,6 +87,31 @@ public class DashboardActivity extends Activity {
             
             finish();
 		}
+	}
+	
+	void prepareNotices() {
+		list = (ListView) findViewById(R.id.list_view);
+		
+		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		
+		List<String> notices_list = db.allNotices();
+		//Log.d("Count", notices_list.get(0));
+		list.setAdapter(new ArrayAdapter<String>(DashboardActivity.this, android.R.layout.simple_list_item_1, notices_list));
+		
+		db.close();
+		
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				String item = ((TextView)view).getText().toString();
+				Intent details = new Intent(getApplicationContext(), NoticeActivity.class);
+				details.putExtra("subject", item);
+				startActivity(details);
+			}
+		});
 	}
 	
 	class LoadNotices extends AsyncTask<String, String, JSONObject> {
@@ -88,7 +131,7 @@ public class DashboardActivity extends Activity {
 		@Override
 		protected JSONObject doInBackground(String... arg0) {
 			UserFunctions userFunction = new UserFunctions();
-			JSONObject json = userFunction.getNotices();
+			JSONObject json = userFunction.getNotices(getApplicationContext());
 			return json;
 		}
 		
@@ -128,28 +171,8 @@ public class DashboardActivity extends Activity {
 				e.printStackTrace();
 			}
 			
-			list = (ListView) findViewById(R.id.list_view);
+			prepareNotices();
 			
-			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-			
-			List<String> notices_list = db.allNotices();
-			//Log.d("Count", notices_list.get(0));
-			list.setAdapter(new ArrayAdapter<String>(DashboardActivity.this, android.R.layout.simple_list_item_1, notices_list));
-			
-			db.close();
-			
-			list.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					
-					String item = ((TextView)view).getText().toString();
-					Intent details = new Intent(getApplicationContext(), NoticeActivity.class);
-					details.putExtra("subject", item);
-					startActivity(details);
-				}
-			});
 			return;
 		}
 		
