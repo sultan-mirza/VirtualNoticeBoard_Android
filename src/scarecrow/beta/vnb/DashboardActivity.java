@@ -31,6 +31,9 @@ public class DashboardActivity extends Activity {
     private static String KEY_DATA = "data";
     private static String KEY_SUBJECT = "subject";
     private static String KEY_MESSAGE = "message";
+    private static String KEY_POSTED_BY = "posted_by";
+    private static String KEY_DATE = "date";
+    private static String KEY_TIME = "time";
     private static String KEY_NUMBER = "num";
     
 	@Override
@@ -95,6 +98,9 @@ public class DashboardActivity extends Activity {
 			JSONObject row = null;
 			String subject = "";
 			String message = "";
+			String posted_by = "";
+			String date = "";
+			String time = "";
 			
 			try {
 				int num = json.getInt(KEY_NUMBER);
@@ -108,7 +114,10 @@ public class DashboardActivity extends Activity {
         				row = data.getJSONObject(i);
         				subject = row.getString(KEY_SUBJECT);
         				message = row.getString(KEY_MESSAGE);
-        				db.addNotices(i + 1, subject, message);
+        				posted_by = row.getString(KEY_MESSAGE);
+        				date = row.getString(KEY_DATE);
+        				time = row.getString(KEY_TIME);
+        				db.addNotices(i + 1, subject, message, posted_by, date, time);
         			}
         			db.close();
         			

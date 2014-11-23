@@ -2,7 +2,6 @@ package scarecrow.beta.vnb;
 
 import java.io.IOException;
 
-import scarecrow.beta.vnb.library.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,8 +22,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import scarecrow.beta.vnb.library.DatabaseHandler;
 import scarecrow.beta.vnb.library.config;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import scarecrow.beta.vnb.library.UserFunctions;
 
 public class RegisterActivity extends Activity {
 	Button btnRegister;
@@ -47,6 +48,7 @@ public class RegisterActivity extends Activity {
     private static String KEY_SUCCESS = "success";
     private static String KEY_NAME = "name";
     private static String KEY_EMAIL = "email";
+    private static String KEY_YEAR = "year";
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -183,7 +185,7 @@ public class RegisterActivity extends Activity {
             			JSONObject json_user = json.getJSONObject("user");
             			
             			userFunction.logoutUser(getApplicationContext());
-            			db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL));
+            			db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_YEAR));
             			db.close();
             			
             			Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);

@@ -25,6 +25,7 @@ public class LoginActivity extends Activity{
     private static String KEY_SUCCESS = "success";
     private static String KEY_NAME = "name";
     private static String KEY_EMAIL = "email";
+    private static String KEY_YEAR = "year";
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LoginActivity extends Activity{
 			
 			@Override
 			public void onClick(View view) {
+
 				new AttemptLogin().execute();
 			}
 		});
@@ -63,9 +65,10 @@ public class LoginActivity extends Activity{
 			String email = inputEmail.getText().toString();
             String password = inputPassword.getText().toString();
             UserFunctions userFunction = new UserFunctions();
-            JSONObject json = userFunction.loginUser(email, password);
+            JSONObject json = null;
+            json = userFunction.loginUser(email, password);
             
-            try {
+            try {Log.d("KK", "P");
             	if (json.getString(KEY_SUCCESS) != null) {
             		//loginErrorMsg.setText("");
             		String res = json.getString(KEY_SUCCESS);
@@ -75,7 +78,7 @@ public class LoginActivity extends Activity{
             			JSONObject json_user = json.getJSONObject("user");
             			
             			userFunction.logoutUser(getApplicationContext());
-            			db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL));
+            			db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_YEAR));
             			db.close();
             			
             			Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);
