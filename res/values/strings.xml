@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">All Notices</string>
+    <string name="app_name">Virtual Notice Board</string>
     <string name="action_settings">Settings</string>
+    <string name="dash_name">All Notices</string>
+    
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
@@ -18,7 +20,7 @@
     <string name="full_name">Full Name</string>
     <string name="already_registered">Already registred. Login Me!</string>
     <string name="title_activity_notice">Notice</string>
-    <string name="subject">Subject:        </string>
+    <string name="subject">"Subject: "</string>
     <string name="message">Message: </string>
     <string name="year">Year</string>
     
@@ -28,5 +30,7 @@
 		<item>Third</item>
 		<item>Fourth</item>
 	</string-array>
+		<string name="date">"Date: "</string>
+		<string name="posted_by">"Posted By: "</string>
 
 </resources>

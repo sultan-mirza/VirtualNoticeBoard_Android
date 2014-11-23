@@ -114,7 +114,7 @@ public class DashboardActivity extends Activity {
         				row = data.getJSONObject(i);
         				subject = row.getString(KEY_SUBJECT);
         				message = row.getString(KEY_MESSAGE);
-        				posted_by = row.getString(KEY_MESSAGE);
+        				posted_by = row.getString(KEY_POSTED_BY);
         				date = row.getString(KEY_DATE);
         				time = row.getString(KEY_TIME);
         				db.addNotices(i + 1, subject, message, posted_by, date, time);
