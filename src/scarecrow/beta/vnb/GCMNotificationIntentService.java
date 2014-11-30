@@ -68,7 +68,8 @@ public class GCMNotificationIntentService extends IntentService {
 		mNotificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent details = new Intent(getApplicationContext(), NoticeActivity.class);
+		//To be changed, pending
+		Intent details = new Intent(getApplicationContext(), DashboardActivity.class);
 		details.putExtra("subject", msg);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				details, 0);
@@ -77,7 +78,7 @@ public class GCMNotificationIntentService extends IntentService {
 		long[] vibrate = { 0, 100, 200, 300 };
 		
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-				this).setSmallIcon(R.drawable.ic_launcher)
+				this).setSmallIcon(R.drawable.the_icon)
 				.setContentTitle("MCE Notice Board")
 				.setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
 				.setContentText(msg)
