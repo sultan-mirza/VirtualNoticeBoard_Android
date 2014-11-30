@@ -18,9 +18,9 @@ public class UserFunctions {
     private static String registerURL = "http://10.0.2.2/vnb/android/user_activity.php";
     private static String noticesURL = "http://10.0.2.2/vnb/android/get_data.php";*/
     
-    private static String loginURL = "https://ieeedtu.com/sagnik/vnb/android/user_activity.php";
-    private static String registerURL = "https://ieeedtu.com/sagnik/vnb/android/user_activity.php";
-    private static String noticesURL = "https://ieeedtu.com/sagnik/vnb/android/get_data.php";
+    private static String loginURL = "http://dcetech.com/sagnik/vnb/android/user_activity.php";
+    private static String registerURL = "http://dcetech.com/sagnik/vnb/android/user_activity.php";
+    private static String noticesURL = "http://dcetech.com/sagnik/vnb/android/get_data.php";
      
     private static String login_tag = "login";
     private static String register_tag = "register";
