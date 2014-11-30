@@ -52,6 +52,20 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
+        
+        <!--  Year Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/year" />
+        <!--  Year TextField -->
+        <Spinner
+            android:id="@+id/registerYear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+        	android:entries="@array/array_name" />
          
         <!--  Error message -->
         <TextView android:id="@+id/register_error"

@@ -17,9 +17,9 @@ public class UserFunctions {
     private static String registerURL = "http://10.0.2.2/vnb/android/user_activity.php";
     private static String noticesURL = "http://10.0.2.2/vnb/android/get_data.php";*/
     
-    private static String loginURL = "http://ieeedtu.com/sagnik/vnb/android/user_activity.php";
-    private static String registerURL = "http://ieeedtu.com/sagnik/vnb/android/user_activity.php";
-    private static String noticesURL = "http://ieeedtu.com/sagnik/vnb/android/get_data.php";
+    private static String loginURL = "http://dcetech.com/sagnik/vnb/android/user_activity.php";
+    private static String registerURL = "http://dcetech.com/sagnik/vnb/android/user_activity.php";
+    private static String noticesURL = "http://dcetech.com/sagnik/vnb/android/get_data.php";
      
     private static String login_tag = "login";
     private static String register_tag = "register";
@@ -36,17 +36,18 @@ public class UserFunctions {
         params.add(new BasicNameValuePair("password", password));
         JSONObject json = jsonParser.getJSONFromUrl(loginURL, params);
         
-        // Log.e("JSON", json.toString());
         return json;
     }
 	
-	public JSONObject registerUser(String name, String email, String password){
+	public JSONObject registerUser(String name, String email, String password, String regId, String year){
         
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", register_tag));
         params.add(new BasicNameValuePair("name", name));
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("regId", regId));
+        params.add(new BasicNameValuePair("year", year));
          
         JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
         return json;
@@ -67,8 +68,15 @@ public class UserFunctions {
         return true;
     }
 	
-	public JSONObject getNotices() {
-		JSONObject json = jsonParser.getJSONFromUrl(noticesURL, null);
+	public JSONObject getNotices(Context context) {
+		
+		DatabaseHandler db = new DatabaseHandler(context);
+		String year = db.getYear();
+		db.close();
+		
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("year", year));
+		JSONObject json = jsonParser.getJSONFromUrl(noticesURL, params);
 		return json;
 	}
 
