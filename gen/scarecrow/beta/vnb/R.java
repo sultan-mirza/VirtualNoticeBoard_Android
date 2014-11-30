@@ -413,7 +413,8 @@ containing a value of this type.
     public static final class id {
         public static final int Date=0x7f07001b;
         public static final int Date1=0x7f07001c;
-        public static final int action_settings=0x7f070029;
+        public static final int action_refresh=0x7f070029;
+        public static final int action_share=0x7f07002a;
         public static final int book_now=0x7f070010;
         public static final int btnLinkToLoginScreen=0x7f070028;
         public static final int btnLinkToRegisterScreen=0x7f07001a;
@@ -470,10 +471,11 @@ containing a value of this type.
         public static final int register=0x7f0b0003;
     }
     public static final class string {
-        public static final int No_Account=0x7f05002f;
+        public static final int No_Account=0x7f050030;
         public static final int accept=0x7f050002;
-        public static final int action_settings=0x7f050024;
-        public static final int already_registered=0x7f050033;
+        public static final int action_refresh=0x7f050024;
+        public static final int action_share=0x7f050025;
+        public static final int already_registered=0x7f050034;
         public static final int app_name=0x7f050023;
         /**   Text for notification shown when the Android Wear apps needs to be updated. Only shown on the wearable. [CHAR LIMIT=NONE] 
          */
@@ -576,32 +578,32 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f050020;
         public static final int create_calendar_message=0x7f050005;
         public static final int create_calendar_title=0x7f050004;
-        public static final int dash_name=0x7f050025;
-        public static final int date=0x7f050038;
+        public static final int dash_name=0x7f050026;
+        public static final int date=0x7f050039;
         public static final int decline=0x7f050003;
-        public static final int email=0x7f05002c;
-        public static final int full_name=0x7f050032;
-        public static final int hello_world=0x7f050026;
-        public static final int login=0x7f05002e;
-        public static final int login_big=0x7f05002b;
-        public static final int logout=0x7f050029;
-        public static final int message=0x7f050036;
-        public static final int password=0x7f05002d;
-        public static final int posted_by=0x7f050039;
-        public static final int register=0x7f050031;
-        public static final int register_big=0x7f050030;
+        public static final int email=0x7f05002d;
+        public static final int full_name=0x7f050033;
+        public static final int hello_world=0x7f050027;
+        public static final int login=0x7f05002f;
+        public static final int login_big=0x7f05002c;
+        public static final int logout=0x7f05002a;
+        public static final int message=0x7f050037;
+        public static final int password=0x7f05002e;
+        public static final int posted_by=0x7f05003a;
+        public static final int register=0x7f050032;
+        public static final int register_big=0x7f050031;
         public static final int store_picture_message=0x7f050001;
         public static final int store_picture_title=0x7f050000;
-        public static final int subject=0x7f050035;
-        public static final int title_activity_login=0x7f050027;
-        public static final int title_activity_notice=0x7f050034;
-        public static final int title_activity_register=0x7f050028;
+        public static final int subject=0x7f050036;
+        public static final int title_activity_login=0x7f050028;
+        public static final int title_activity_notice=0x7f050035;
+        public static final int title_activity_register=0x7f050029;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
         public static final int wallet_buy_button_place_holder=0x7f050022;
-        public static final int welcome=0x7f05002a;
-        public static final int year=0x7f050037;
+        public static final int welcome=0x7f05002b;
+        public static final int year=0x7f050038;
     }
     public static final class style {
         /** 

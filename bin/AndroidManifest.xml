@@ -29,6 +29,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="scarecrow.beta.vnb.DashboardActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,14 +39,17 @@
         </activity>
         <activity
             android:name="scarecrow.beta.vnb.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name="scarecrow.beta.vnb.RegisterActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
             android:name="scarecrow.beta.vnb.NoticeActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_notice" >
         </activity>
         

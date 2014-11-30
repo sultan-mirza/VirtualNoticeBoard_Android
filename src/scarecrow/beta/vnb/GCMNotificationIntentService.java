@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
@@ -54,7 +56,7 @@ public class GCMNotificationIntentService extends IntentService {
 				}
 				Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
 
-				sendNotification("New Notice Posted!");
+				sendNotification(extras.getString("m"));
 				Log.i(TAG, "Received: " + extras.toString());
 			}
 		}
@@ -66,14 +68,22 @@ public class GCMNotificationIntentService extends IntentService {
 		mNotificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
+		Intent details = new Intent(getApplicationContext(), NoticeActivity.class);
+		details.putExtra("subject", msg);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-				new Intent(this, DashboardActivity.class), 0);
+				details, 0);
 
+		Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		long[] vibrate = { 0, 100, 200, 300 };
+		
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this).setSmallIcon(R.drawable.ic_launcher)
 				.setContentTitle("MCE Notice Board")
 				.setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-				.setContentText(msg);
+				.setContentText(msg)
+				.setVibrate(vibrate)
+				.setAutoCancel(true)
+				.setSound(alarmSound);
 
 		mBuilder.setContentIntent(contentIntent);
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

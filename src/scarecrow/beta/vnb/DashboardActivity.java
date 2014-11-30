@@ -17,6 +17,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -87,6 +90,22 @@ public class DashboardActivity extends Activity {
             
             finish();
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		new MenuInflater(this).inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	public boolean refresh(MenuItem item) {
+		Intent login = new Intent(getApplicationContext(), DashboardActivity.class);
+		login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		startActivity(login);
+		
+		return true;
 	}
 	
 	void prepareNotices() {
